@@ -1,0 +1,12 @@
+Hunter Austin
+Code:You
+Web Dev Capstone
+Project Plan
+
+Overview:
+The project is a game of hangman. It will get a random word from the random word api. The user will guess letters in the word. If they get all the letters of the word before a certain number of incorrect guesses they win the round. Each additional round gets a longer word from the api. There will be an intro.instructions page, a game page, and a scores page. The web app will be responsive and use html, css, and javascript. I will use flex box for alignment.
+
+Features:
+- Use arrays, objects, sets, or maps to store and retrieve information that is displayed in your app. The app will store the previous guesses of the user in an array.
+- Analyze data that is stored in arrays, objects, sets or maps and display information about it in your app. The app will analyze the guesses stored in the array and replace blanks in the word with the correct guesses.
+- Retrieve data from a third-party API and use it to display something within your app. The app will get a word from the random word api here https://random-word-api.herokuapp.com/home and use that word for the hangman game. As the user progresses the words get longer.
