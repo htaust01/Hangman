@@ -1,0 +1,17 @@
+#navbar {
+   display: flex;
+   justify-content: space-around;
+}
+
+a {
+   text-decoration: none;
+}
+
+.currentPage {
+   color: gray;
+   pointer-events: none;
+}
+
+body {
+   text-align: center;
+}
