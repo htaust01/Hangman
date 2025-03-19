@@ -6,6 +6,7 @@
 #navbar {
    display: flex;
    justify-content: space-around;
+   padding-bottom: 30px;
 }
 
 a {
@@ -35,4 +36,23 @@ main {
    margin-right: 15%;
    display: flex;
    flex-direction: column;
+}
+
+#gamePic {
+   max-width: 500px;
+   min-width: 300px;
+   margin: 0 auto;
+}
+
+#word {
+   font-size: 40px;
+}
+
+ul {
+   text-align: left;
+}
+
+#guess-container {
+   display: flex;
+   flex-direction: row;
 }
