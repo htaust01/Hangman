@@ -1,33 +1,41 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-   <meta charset="UTF-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <link rel="stylesheet" href="./css/style.css">
-   <title>Play Hangman</title>
-</head>
-<body>
-   <header>
-      <nav id="navbar">
-         <a href="./index.html">Instructions</a>
-         <a href="./game.html" class="currentPage">Play Hangman</a>
-         <a href="./scores.html">Scores</a>
-      </nav>
-   </header>
-   <main>
-      <h1>Play Hangman</h1>
-      <p id="word">Guess this word: _ _ _ _ _ _ _</p>
-      <img id="gamePic" src="./imgs/hangman01.png">
-      <p id="feedback">Guess a Letter</p>
-      <div id="guess-container"></div>
-         <div id="input-container">
-            <input type="text" name="" id="guess-input" placeholder="Enter Letter"/>
-         </div>
-         <div id="button-container">
-            <button id="submitBtn" class="btn">Submit Guess</button>
-         </div>
-     </div>
-   </main>
-   <script src="./js/playgame.js"></script>
-</body>
+  <head>
+    <meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="./css/styles.css">
+    <title>Play Hangman</title>
+  </head>
+  <body>
+	<header id="header">
+		<nav id="navbar">
+			<a href="./index.html">Instructions</a>
+			<a class="currentPage" href="./game.html">Play Game</a>
+			<a href="./scores.html">Scores</a>
+		</nav>
+	</header>
+	<div id="banner">
+		<h1>HANGMAN</h1>
+	</div>
+	<main id="main">
+		<section id="one">
+			<img id="hangmanPic" src="./imgs/hangman01.png" alt="Picture of hangman with 7 guesses left" />
+		</section>
+		<section id="two">
+			<p>Puzzle: <span id="puzzle">-------</span></p>
+			<p>Guessed Letters: <span id="guessedLetters"></span></p>
+			<p><span id="feedback">Guess a Letter</span></p>
+			<div "controls">
+				<input type="text" id="letterGuess" placeholder="Guess a Letter" />
+				<button id="submitBtn">Submit</button>
+				<button id="resetBtn">Reset</button>
+			</div>
+		</section>
+	</main>
+	<footer id="footer">
+		<span>No Copyright 2025</span>
+		<span>by Hunter Austin</span>
+	</footer>
+	<script src="./js/playgame0.js"></script>
+  </body>
 </html>

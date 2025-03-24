@@ -1,0 +1,121 @@
+
+@font-face {
+   font-family: 'KALOOT';
+   src: url("./KALOOT.ttf");
+}
+
+#navbar {
+   display: flex;
+   justify-content: space-around;
+   padding-bottom: 30px;
+}
+
+a {
+   text-decoration: none;
+   color: #777;
+}
+
+a:hover {
+   color: #000;
+}
+
+.currentPage {
+   color: gray;
+   pointer-events: none;
+}
+
+#header {
+	height: 5vh;
+}
+
+#footer {
+	height: 5vh;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	align-items: flex-end;
+}
+
+#banner {
+	height: 5vh;
+}
+
+#main {
+	height: 83vh;
+}
+
+#resetBtn {
+	display: none;
+}
+
+body {
+   font-family: 'KALOOT';
+   text-align: center;
+   color: #777;
+   background-image: url("../imgs/paper3.png");
+   background-size: cover;
+   display: flex;
+   flex-direction: column;
+   justify-content: space-between;
+}
+
+main {
+   margin-left: 10%;
+   margin-right: 10%;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+}
+
+#hangmanPic {
+   max-width: 500px;
+   min-width: 250px;
+   margin: 0 auto;
+}
+
+h1 {
+	font-size: 30px;
+}
+
+h2 {
+	font-size: 23px;
+}
+
+p {
+	font-size: 16px;
+}
+
+ul {
+   text-align: left;
+}
+
+#one {
+	width: 100%;
+}
+
+#two {
+	width: 100%;
+}
+
+#guess-container {
+   display: flex;
+   flex-direction: row;
+}
+
+#letterGuess {
+	width: 90px;
+}
+
+@media (min-width: 651px) {
+	main {
+		flex-direction: row;
+	}
+
+	#one {
+		width: 50%;
+	}
+
+	#two {
+		width: 50%;
+	}
+}
