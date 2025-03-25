@@ -1,7 +1,7 @@
 
 @font-face {
    font-family: 'KALOOT';
-   src: url("./KALOOT.ttf");
+   src: url("../KALOOT.ttf");
 }
 
 #navbar {
@@ -40,7 +40,11 @@ a:hover {
 	height: 5vh;
 }
 
-#main {
+#indexMain {
+	height: 40vh;
+}
+
+#gameMain {
 	height: 83vh;
 }
 
