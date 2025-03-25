@@ -3,58 +3,47 @@
 const hangmanPic = document.getElementById("hangmanPic");
 const submitBtn = document.getElementById("submitBtn");
 const resetBtn = document.getElementById("resetBtn");
-const nextBtn = document.getElementById("nextBtn");
 const puzzle = document.getElementById("puzzle");
 const feedback = document.getElementById("feedback");
 const letterGuess = document.getElementById("letterGuess");
 const guessedLetters = document.getElementById("guessedLetters");
 
-const words = ["HAPPY", "LITTLE", "HANGMAN"]
 let wordArr = [];
 let guessArr = [];
 let prevGuesses = [];
 let currentImage = 1;
-let usedLetters = [];
 let guessesLeft = 7;
 let gameLevel = 1;
-let currentWord = words[gameLevel - 1];
+let currentWord = "";
+let wordHistory = [];
+let guessHistory = [];
 
-const getRandomWordFromApi = async () => {
+const fetchWord = async () => {
 	try {
 		const response = await fetch(`https://random-word-api.herokuapp.com/word?length=${gameLevel + 4}`);
-		if (!response.ok) {
-			throw new Error(`HTTP error! status: ${response.status}`);
-		}
 		const data = await response.json();
-		return data;
+		console.log(data);
+		currentWord = data[0].toUpperCase();
+		console.log(currentWord);
+		wordHistory.push(currentWord);
+		localStorage.setItem("wordHistory", JSON.stringify(wordHistory));
+		resetGame();
 	} catch (error) {
-		console.error("Error fetching data:", error);
-		return null;
+		console.error(`Error fetching word: ${error}`);
 	}
 }
 
-const getWord = async () =>
-{
-	//currentWord = "HANGMAN";
-	//console.log(currentWord);
-	//let newWord;
-	//getRandomWordFromApi().then(data => {
-	//	console.log(data[0]);
-	//	currentWord = data[0];
-		
-	//});
-	/*
-	const data = await getRandomWordFromApi();
-	if(!data) {
-		feedback.innerText = "Problems with the API, try again later.";
-		return;
-	}
-	console.log(data[0]);
-	currentWord = await data[0];
-	*/
-	currentWord = words[gameLevel - 1];
-	console.log(currentWord);
-	
+const resetGame = () => {
+	submitBtn.style.display = "inline";
+	resetBtn.style.display = "none";
+	guessesLeft = 7;
+	currentImage = 1;
+	prevGuesses = [];
+	guessedLetters.innerText = "";
+	makeWordArrays();
+	updatePuzzle("");
+	hangmanPic.src = `./imgs/hangman0${currentImage}.png`;
+	feedback.innerText = "Make a Guess";
 }
 
 const makeWordArrays = () => {
@@ -89,35 +78,38 @@ const updatePuzzle = (guess) => {
 const makeGuess = () => {
 	const guess = letterGuess.value.toUpperCase();
 	letterGuess.value = "";
-	if(guessesLeft <= 0) {
+	if(guessesLeft <= 0) {  // Already lost game
 		feedback.innerText = "You have already lost. Press Reset to play again or check your score on the Scores page.";
 		return;
 	}
-	if(!isValidGuess(guess)) {
+	if(!isValidGuess(guess)) { // Invalid guess
 		feedback.innerText = "That is an invalid guess. Try Again.";
 		return;
 	}
-	if(prevGuesses.includes(guess)) {
+	if(prevGuesses.includes(guess)) { // Guessed same letter again
 		feedback.innerText = `You have already guessed the letter '${guess}'. Try Again.`;
 		return;
 	}
-	prevGuesses.push(guess)
+	prevGuesses.push(guess);
 	guessedLetters.innerText = prevGuesses;
-	if(!currentWord.includes(guess)) {
+	guessHistory.push(guess);
+	localStorage.setItem("guessHistory", JSON.stringify(guessHistory));
+	if(!currentWord.includes(guess)) { // guessed wrong
 		guessesLeft--;
 		feedback.innerText = `The puzzle does not contain the letter '${guess}'. You have ${guessesLeft} guesses left.`;
 		changePic();
-		if(guessesLeft === 0) {
+		if(guessesLeft === 0) { // used up all guesses
 			loseGame();
 			submitBtn.style.display = "none";
 			resetBtn.innerText = "Reset";
 			resetBtn.style.display = "inline";
 			gameLevel = 1;
+			puzzle.innerText = currentWord; // reveal puzzle
 		}
 		return;
 	}
 	updatePuzzle(guess);
-	if(wordArr.join("") === guessArr.join("")) {
+	if(wordArr.join("") === guessArr.join("")) { // solved the puzzle
 		feedback.innerText = `The puzzle does contain the letter '${guess}'. You have WON with ${guessesLeft} guesses left! Congratulations!`;
 		gameLevel++;
 		submitBtn.style.display = "none";
@@ -128,25 +120,8 @@ const makeGuess = () => {
 	feedback.innerText = `The puzzle does contain the letter '${guess}'. You have ${guessesLeft} guesses left.`;
 }
 
-const resetGame = () => {
-	submitBtn.style.display = "inline";
-	resetBtn.style.display = "none";
-	guessesLeft = 7;
-	currentImage = 1;
-	prevGuesses = [];
-	guessedLetters.innerText = prevGuesses;
-	getWord();
-	makeWordArrays();
-	updatePuzzle("");
-	hangmanPic.src = `./imgs/hangman0${currentImage}.png`;
-	feedback.innerText = "Make a Guess";
-}
-
-
-getWord();
-console.log(currentWord);
-makeWordArrays();
-updatePuzzle("");
+localStorage.removeItem("wordHistory");
+localStorage.removeItem("guessHistory");
 submitBtn.addEventListener("click", makeGuess);
-resetBtn.addEventListener("click", resetGame);
-nextBtn.addEventListener("click", nextPuzzle);
+resetBtn.addEventListener("click", fetchWord);
+fetchWord();
