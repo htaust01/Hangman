@@ -1,18 +1,47 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-   <meta charset="UTF-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <link rel="stylesheet" href="./css/style.css">
-   <title>Your Scores</title>
-</head>
-<body>
-   <header>
-      <nav id="navbar">
-         <a href="./index.html">Instructions</a>
-         <a href="./game.html">Play Hangman</a>
-         <a href="./scores.html" class="currentPage">Scores</a>
-      </nav>
-   </header>
-</body>
+  <head>
+    <meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="./css/styles.css">
+    <title>Scores</title>
+  </head>
+  <body>
+	<header id="header">
+		<nav id="navbar">
+			<a href="./index.html">Instructions</a>
+			<a href="./game.html">Play Game</a>
+			<a class="currentPage" href="./scores.html">Scores</a>
+		</nav>
+	</header>
+	<div id="banner">
+		<h1>HANGMAN</h1>
+	</div>
+	<img id="hangmanPic" src="./imgs/hangman08.png" alt="the hangman" />
+	<main id="indexMain">
+		<section id="section1of3">
+			<h2>Word List</h2>
+			<ul id="wordList">
+				<li>Unavailable until you have played the game</li>
+			</ul>
+		</section>
+		<section id="section2of3">
+			<h2>Word Analysis</h2>
+			<ul id="wordAnalysis">
+				<li>Unavailable until you have played the game</li>
+			</ul>
+		</section>
+		<section id="section3of3">
+			<h2>Guess Analysis</h2>
+			<ul id="guessAnalysis">
+				<li>Unavailable until you have played the game</li>
+			</ul>
+		</section>
+	</main>
+	<footer id="footer">
+		<span>No Copyright 2025</span>
+		<span>by Hunter Austin</span>
+	</footer>
+	<script src="./js/getScores.js"></script>
+  </body>
 </html>

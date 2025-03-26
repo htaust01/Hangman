@@ -14,13 +14,15 @@ let prevGuesses = [];
 let currentImage = 1;
 let guessesLeft = 7;
 let gameLevel = 1;
-let currentWord = "";
+let currentWord = "HANGMAN";
 let wordHistory = [];
 let guessHistory = [];
 
 const fetchWord = async () => {
 	try {
-		const response = await fetch(`https://random-word-api.herokuapp.com/word?length=${gameLevel + 4}`);
+		const response = await fetch(`https://random-word-api.herokuapp.com/word?length=${gameLevel + 4 > 15 ? 15 : gameLevel + 4}`); // 15 is max word length for herokuapp API
+		// while working on this game the herokuapp API went down, if this happens the API below can also get random words but the max word length is 9
+		//const response = await fetch(`https://random-word-api.vercel.app/api?length=${gameLevel + 4 > 9 ? 9 : gameLevel + 4}`); // 9 is max word length for vercel API
 		const data = await response.json();
 		console.log(data);
 		currentWord = data[0].toUpperCase();
@@ -30,6 +32,7 @@ const fetchWord = async () => {
 		resetGame();
 	} catch (error) {
 		console.error(`Error fetching word: ${error}`);
+		//console.log("Error Fetching word from API");
 	}
 }
 
@@ -78,8 +81,8 @@ const updatePuzzle = (guess) => {
 const makeGuess = () => {
 	const guess = letterGuess.value.toUpperCase();
 	letterGuess.value = "";
-	if(guessesLeft <= 0) {  // Already lost game
-		feedback.innerText = "You have already lost. Press Reset to play again or check your score on the Scores page.";
+	if(guessesLeft <= 0) {  // Already lost game (inside code should be unreachable)
+		feedback.innerHTML = "You have already lost. Press Reset to play again or check your score on the <a href='./scores.html'>Scores</a> page.";
 		return;
 	}
 	if(!isValidGuess(guess)) { // Invalid guess
@@ -96,7 +99,7 @@ const makeGuess = () => {
 	localStorage.setItem("guessHistory", JSON.stringify(guessHistory));
 	if(!currentWord.includes(guess)) { // guessed wrong
 		guessesLeft--;
-		feedback.innerText = `The puzzle does not contain the letter '${guess}'. You have ${guessesLeft} guesses left.`;
+		feedback.innerText = `The puzzle does not contain the letter '${guess}'. You have ${guessesLeft} guess${guessesLeft === 1 ? '' : 'es'} left.`;
 		changePic();
 		if(guessesLeft === 0) { // used up all guesses
 			loseGame();
@@ -110,14 +113,14 @@ const makeGuess = () => {
 	}
 	updatePuzzle(guess);
 	if(wordArr.join("") === guessArr.join("")) { // solved the puzzle
-		feedback.innerText = `The puzzle does contain the letter '${guess}'. You have WON with ${guessesLeft} guesses left! Congratulations!`;
+		feedback.innerText = `The puzzle does contain the letter '${guess}'. You have WON with ${guessesLeft} guess${guessesLeft === 1 ? '' : 'es'} left! Congratulations!`;
 		gameLevel++;
 		submitBtn.style.display = "none";
 		resetBtn.innerText = "Next";
 		resetBtn.style.display = "inline";
 		return;
 	}
-	feedback.innerText = `The puzzle does contain the letter '${guess}'. You have ${guessesLeft} guesses left.`;
+	feedback.innerText = `The puzzle does contain the letter '${guess}'. You have ${guessesLeft} guess${guessesLeft === 1 ? '' : 'es'} left.`;
 }
 
 localStorage.removeItem("wordHistory");
@@ -125,3 +128,5 @@ localStorage.removeItem("guessHistory");
 submitBtn.addEventListener("click", makeGuess);
 resetBtn.addEventListener("click", fetchWord);
 fetchWord();
+
+

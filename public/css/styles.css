@@ -24,33 +24,36 @@ a:hover {
    pointer-events: none;
 }
 
-#header {
-	height: 5vh;
-}
-
 #footer {
-	height: 5vh;
+	/*height: 5vh;*/
 	display: flex;
 	flex-direction: row;
 	justify-content: space-around;
 	align-items: flex-end;
 }
-
+/*
 #banner {
 	height: 5vh;
 }
 
-#indexMain {
-	height: 40vh;
-}
-
 #gameMain {
 	height: 83vh;
+	max-height: 100vh;
 }
 
+#indexMain {
+	height: 35vh;
+	max-height: 100vh;
+}
+
+#header {
+	height: 5vh;
+}
+*/
 #resetBtn {
 	display: none;
 }
+
 
 body {
    font-family: 'KALOOT';
@@ -101,6 +104,26 @@ ul {
 	width: 100%;
 }
 
+#section1of2 {
+	width: 100%;
+}
+
+#section2of2 {
+	width: 100%;
+}
+
+#section1of3 {
+	width: 100%;
+}
+
+#section2of3 {
+	width: 100%;
+}
+
+#section3of3 {
+	width: 100%;
+}
+
 #guess-container {
    display: flex;
    flex-direction: row;
@@ -115,11 +138,35 @@ ul {
 		flex-direction: row;
 	}
 
+	#indexMain {
+		align-items: flex-start;
+	}
+
 	#one {
 		width: 50%;
 	}
 
 	#two {
 		width: 50%;
+	}
+
+	#section1of2 {
+		width: 50%;
+	}
+
+	#section2of2 {
+		width: 50%;
+	}
+
+	#section1of3 {
+		width: 33%;
+	}
+
+	#section2of3 {
+		width: 33%;
+	}
+
+	#section3of3 {
+		width: 33%;
 	}
 }
