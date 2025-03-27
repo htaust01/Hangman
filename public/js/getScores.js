@@ -4,12 +4,14 @@ const wordList = document.getElementById("wordList");
 const wordAnalysis = document.getElementById("wordAnalysis");
 const guessAnalysis = document.getElementById("guessAnalysis");
 
+// get histories from local storage
 const wordHistory = JSON.parse(localStorage.getItem("wordHistory"));
 const guessHistory = JSON.parse(localStorage.getItem("guessHistory"));
 
 console.log(wordHistory);
 console.log(guessHistory);
 
+// populates list items in the Word List
 const populateWordList = () => {
 	if(wordHistory) {
 		wordList.innerHTML = "";
@@ -19,6 +21,7 @@ const populateWordList = () => {
 	}
 };
 
+// creates object with letters as keys and counts as values
 const countLetters = stringArr => {
 	if(!stringArr) return null;
 	const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -32,6 +35,7 @@ const countLetters = stringArr => {
 	return result;
 };
 
+// analyzes letterCounts object to find the letters that occur most
 const getMostCommonLetters = letterCounts => {
 	let result = [];
 	let currentMax = 0;
@@ -46,6 +50,7 @@ const getMostCommonLetters = letterCounts => {
 	return result;
 };
 
+// creates an analysis of a string array and populates the word and guess analysis
 const analyzeHistory = (stringArr, analysis) => {
 	const letterCounts = countLetters(stringArr);
 	console.log(JSON.stringify(letterCounts));
@@ -59,6 +64,7 @@ const analyzeHistory = (stringArr, analysis) => {
 	});
 };
 
+// fill the page with analysis of user's history
 populateWordList();
 analyzeHistory(wordHistory, wordAnalysis);
 analyzeHistory(guessHistory, guessAnalysis);
